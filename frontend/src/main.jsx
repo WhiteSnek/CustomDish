@@ -17,7 +17,7 @@ const Layout = () => {
         <Route path='login' element={<Login />} />
         <Route path='profile' element={<Profile />} />
         <Route path='restaurantLogin' element={<RestaurantLogin />} />
-        <Route path='restaurantProfile' element={<RestaurantProfile />} />
+        <Route path='restaurantProfile/:id' element={<RestaurantProfile />} />
         <Route path='registerRestaurant' element={<RegisterRestaurant />} />
         <Route path='dishes' element={<Dishes />} />
       </Route>

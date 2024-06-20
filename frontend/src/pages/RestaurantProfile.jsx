@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import UserContext from '../context/UserContext'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const DishCard = ({item}) => {
     return (
@@ -32,6 +32,7 @@ const DishCard = ({item}) => {
 
 const RestaurantProfile = () => {
     const { restaurant, setRestaurant } = useContext(UserContext);
+    const {id} = useParams()
     const [dishes,setDishes] = useState([])
     useEffect(()=>{
       getDishes();
@@ -65,10 +66,10 @@ const RestaurantProfile = () => {
             <h1 className='text-3xl font-semibold'>{restaurant.fullname}</h1>
             <h1 className='text-xl font-thin text-gray-400'>{restaurant.email}</h1>
             <h1 className='text-xl font-thin text-gray-400'>{restaurant.address}</h1>
-            <div className='absolute top-0 right-0 flex gap-2'>
+            {(id == restaurant._id) && <div className='absolute top-0 right-0 flex gap-2'>
             <button className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Edit profile</button>
             <button onClick={()=>logoutUser()} className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Logout</button>
-            </div>
+            </div>}
         </div>
       </div>
       <div className='py-10'>

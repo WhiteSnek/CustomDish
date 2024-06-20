@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const RestaurantCard = ({item}) => {
     return (
-        <div className='bg-gray-100 p-8 rounded-lg hover:shadow-xl'>
+        <Link to={`restaurantProfile/${item._id}`} className='bg-gray-100 p-8 rounded-lg hover:shadow-xl'>
             <div className='flex justify-center mb-4'>
                 <img src={item.avatar} alt='logo' className='w-80 aspect-square object-cover rounded-lg' />
             </div>
@@ -24,7 +24,7 @@ const RestaurantCard = ({item}) => {
                 </div>
                 <div className='font-thin text-gray-500'>{item.address}</div>
             </div>
-        </div>
+        </Link>
     )
 }
 

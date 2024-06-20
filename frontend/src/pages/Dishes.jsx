@@ -5,17 +5,14 @@ import "reactjs-popup/dist/index.css";
 import { RxCross1 } from "react-icons/rx";
 import { data } from "../constants";
 import UserContext from "../context/UserContext";
-const DishCard = ({ item }) => {
-  const {restaurant} = useContext(UserContext)
-  console.log("item._id:", item._id);
+const DishCard = ({ item,restaurantDishes,setRestaurantDishes }) => {
+  
   const dishId = item._id;
-console.log("restaurant.dishes:", restaurant.dishes);
-  console.log(restaurant.dishes.includes(item._id))
-  const [dishAdded,setDishAdded] = useState(false)
   const addDish = async() => {
     try {
         const response = await axios.post('/restaurant/dishes',{dishId},{withCredentials: true})
-        setDishAdded(true)
+        setRestaurantDishes([...restaurantDishes, item._id])
+        console.log(restaurantDishes)
     } catch (error) {
         console.log(error)
     }
@@ -54,7 +51,7 @@ console.log("restaurant.dishes:", restaurant.dishes);
           <div className="flex gap-2 absolute bottom-0 right-0">
             <p className="text-3xl font-semibold">Price: Rs {item.price}</p>
             <button onClick={()=>addDish()} className="bg-red-500 py-2 px-4 text-white rounded-lg">
-              {restaurant.dishes.includes(item._id) ? 'Dish Added' : 'Add Dish'}
+              {restaurantDishes.includes(item._id) ? 'Dish Added' : 'Add Dish'}
             </button>
           </div>
         </div>
@@ -67,6 +64,8 @@ const Dishes = () => {
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const {restaurant} = useContext(UserContext)
+  const [restaurantDishes,setRestaurantDishes] = useState([])
   const [details, setDetails] = useState({
     name: "",
     description: '',
@@ -80,8 +79,18 @@ const Dishes = () => {
 
   useEffect(() => {
     getDishes();
+    getResDishes();
   }, []);
-
+  const getResDishes = async() => {
+    try {
+      const response = await axios.get(`/restaurant/dishes/${restaurant._id}`,{withCredentials: true})
+      console.log(response.data.data)
+      setRestaurantDishes(response.data.data.map(item => item._id))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(restaurantDishes)
   const getDishes = async () => {
     try {
       const response = await axios.get("/dish/all", { withCredentials: true });
@@ -161,7 +170,7 @@ const Dishes = () => {
         {dishes.length === 0 ? (
           <p className="font-thin text-gray-500">No dishes found</p>
         ) : (
-          dishes.map((item, idx) => <DishCard key={idx} item={item} />)
+          dishes.map((item, idx) => <DishCard key={idx} item={item} restaurantDishes={restaurantDishes} setRestaurantDishes={setRestaurantDishes} />)
         )}
       </div>
       <div className="fixed bottom-0 right-0 px-10 py-4 w-full flex justify-end shadow-lg bg-slate-100">

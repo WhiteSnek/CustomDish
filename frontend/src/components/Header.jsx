@@ -43,7 +43,7 @@ export default function Header() {
             </IconContext.Provider>
           </Link>
           {user || restaurant ? (
-            <Link to={user ? "/profile": "restaurantProfile"}>
+            <Link to={user ? "/profile": `restaurantProfile/${restaurant._id}`}>
               <img
                 src={user?.avatar || restaurant?.avatar}
                 alt="avatar"
