@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Container styling */
+.scroll-menu-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Scroll container styling */
+.react-horizontal-scrolling-menu--scroll-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+/* Left and right arrow buttons */
+.left-arrow, .right-arrow {
+    position: absolute;
+    top: 60%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    z-index: 1; /* Ensure arrows are above the content */
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+.left-arrow img, .right-arrow img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Category item styling */
+.category-item {
+    display: inline-block;
+    position: relative;
+    margin: 0 20px;
+    width: 200px; /* Adjust width as needed */
+}
+
