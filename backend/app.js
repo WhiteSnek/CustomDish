@@ -5,7 +5,7 @@ import cors from 'cors'
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.CORS_ORIGIN,
     credentials: true
 }));
 
@@ -21,9 +21,9 @@ app.use(cookieParser())
 
 // route imports
 // import imageRouter from './routes/images.routes.js'
-import userRouter from './routes/user.routes.js'
-import dishRouter from './routes/dishes.routes.js'
-import restaurantRouter from './routes/restaurants.routes.js'
+import userRouter from './src/routes/user.routes.js'
+import dishRouter from './src/routes/dishes.routes.js'
+import restaurantRouter from './src/routes/restaurants.routes.js'
 
 // router use
 // app.use("/api/v1", imageRouter)
