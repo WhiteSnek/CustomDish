@@ -9,6 +9,8 @@ app.use(cors({
     credentials: true
 }));
 
+console.log(process.env.CORS_ORIGIN)
+
 app.use(express.json({
     limit: "16kb"
 }));
@@ -24,6 +26,10 @@ app.use(cookieParser())
 import userRouter from './src/routes/user.routes.js'
 import dishRouter from './src/routes/dishes.routes.js'
 import restaurantRouter from './src/routes/restaurants.routes.js'
+
+app.get('/',(req,res)=>{
+    res.json('hello')
+})
 
 // router use
 // app.use("/api/v1", imageRouter)

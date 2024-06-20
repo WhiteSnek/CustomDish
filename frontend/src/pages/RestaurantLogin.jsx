@@ -40,11 +40,11 @@ const RestaurantLogin = () => {
       setRestaurant(userInfo);
       navigate("/");
     } catch (error) {
-      // const errorMessage = error.response.data.match(
-      //   /<pre>Error: (.*?)<br>/
-      // )[1];
-      // setError(errorMessage)
-      console.log(error)
+      const errorMessage = error.response.data.match(
+        /<pre>Error: (.*?)<br>/
+      )[1];
+      setError(errorMessage)
+      console.log(errorMessage)
     }
   };
   const togglePasswordVisibility = () => {
