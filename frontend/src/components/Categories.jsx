@@ -36,7 +36,7 @@ const CategoryCard = ({ item }) => {
             try {
                 const response = await axios.get('https://api.pexels.com/v1/search', {
                     headers: {
-                        'Authorization': '5q2xUWFPpBpAvvwCWTA07Yt5D93TVe9ehF7Wq9MyKZeTCGeAtUqWDgLO'
+                        'Authorization': import.meta.env.VITE_PEXELS_KEY
                     },
                     params: {
                         query: item.name + 'cuisine',
