@@ -23,7 +23,7 @@ router.route("/login").post(loginRestaurant);
 router.route("/logout").post(verifyResJWT, logoutRestaurant);
 router.route("/refresh-token").post(refreshAccessToken)
 router.route("/update-address").patch(verifyResJWT, updateRestaurantAddresss)
-router.route("current-restaurant").get(getCurrentRestaurant)
+router.route("/current-restaurant").get(getCurrentRestaurant)
 router.route("/dishes").post(verifyResJWT, addDishes)
 router.route("/dishes/:id").get(getAllDishes)
 router.route("/restaurants").get(getAllRestaurants)

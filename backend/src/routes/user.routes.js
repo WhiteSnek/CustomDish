@@ -31,7 +31,7 @@ router
   .patch(verifyJWT, upload.single("avatar"), updateUserAvatar);
 router.route("/c/:username").get(verifyJWT, getUserProfile);
 router.route("/orders").get(verifyJWT, getOrders);
-router.route("/orders").post(verifyJWT, addOrder);
+router.route("/orders/:orderId").post(verifyJWT, addOrder);
 router.route("/address").post(verifyJWT, addAddress);
 
 export default router;

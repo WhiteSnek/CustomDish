@@ -78,4 +78,12 @@ return res
   .json(new ApiResponse(200, dishes, "Dishes fetched successfully"));
 })
 
-export { addDish, removeDish, updateDish, getAllDishes };
+
+const getDishById = asyncHandler( async(req,res) => {
+  const { id } = req.params;
+  const dish = await Dish.findById(id);
+  if (!dish) throw new ApiError(404, "Dish not found");
+  return res.status(200).json(new ApiResponse(200, dish, "Dish fetched successfully"));
+})
+
+export { addDish, removeDish, updateDish, getAllDishes, getDishById };

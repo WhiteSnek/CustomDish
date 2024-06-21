@@ -47,6 +47,8 @@ app.use(cookieParser())
 import userRouter from './src/routes/user.routes.js'
 import dishRouter from './src/routes/dishes.routes.js'
 import restaurantRouter from './src/routes/restaurants.routes.js'
+import orderRouter from './src/routes/order.routes.js'
+import ingredientRouter from './src/routes/ingredients.routes.js'
 
 app.get('/',(req,res)=>{
     res.json('hello')
@@ -57,5 +59,7 @@ app.get('/',(req,res)=>{
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/dish", dishRouter)
 app.use("/api/v1/restaurant", restaurantRouter)
+app.use("/api/v1/order",orderRouter)
+app.use("/api/v1/ingredient",ingredientRouter)
 
 export {app}

@@ -6,6 +6,7 @@ import RestaurantLogin from './RestaurantLogin'
 import RestaurantProfile from './RestaurantProfile'
 import RegisterRestaurant from './RegisterRestaurant'
 import Dishes from './Dishes'
+import Dish from './Dish'
 
 export {
     Home,
@@ -15,5 +16,6 @@ export {
     RestaurantLogin,
     RestaurantProfile,
     RegisterRestaurant,
-    Dishes
+    Dishes,
+    Dish
 }

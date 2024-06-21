@@ -313,10 +313,43 @@ const getOrders = asyncHandler( async(req,res) => {
         },
         {
             $lookup: {
-                from: 'order',
+                from: 'orders',
                 localField: 'order',
                 foreignField: "_id",
                 as: 'order',
+                pipeline: [
+                    {
+                        $lookup: {
+                          from: 'dishes',
+                          localField: 'dish',
+                          foreignField: '_id',
+                          as: 'dish',
+                          pipeline: [
+                            {$project: {
+                                _id: 1,
+                                name: 1,
+                                image: 1
+                            }}
+                          ]
+                        }
+                      },{
+                        $lookup: {
+                          from: 'restaurants',
+                          localField: 'restaurant',
+                          foreignField: '_id',
+                          as: 'restaurant',
+                          pipeline: [
+                            {
+                              $project: {
+                                _id: 1,
+                                fullname: 1,
+                                address: 1,
+                              }
+                            }
+                          ]
+                        }
+                      }
+                ]
             }
         }
     ])

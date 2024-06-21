@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const DishesCard = ({item}) => {
 
     return (
-        <Link to={`/${item.name.toLowerCase()}`} className="flex flex-col justify-center items-center transition-all bg-gray-100 p-4 rounded-lg hover:scale-105">
+        <Link to={`/dish/${item._id}`} className="flex flex-col justify-center items-center transition-all bg-gray-100 p-4 rounded-lg hover:scale-105">
             <img src={item.image} alt={item.name} className='h-40 aspect-square object-cover rounded-lg' />
             <h2 className='text-lg font-semibold'>{item.name}</h2>
             <div className='flex gap-2 text-xs'><span className='bg-blue-600 text-white px-2 py rounded-full'>{item.category}</span><span  className={`${

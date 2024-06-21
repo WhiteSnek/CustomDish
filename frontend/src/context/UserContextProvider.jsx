@@ -13,7 +13,7 @@ const UserContextProvider = ({ children }) => {
     if (storedRestaurant) {
       setRestaurant(storedRestaurant);
     }
-    axios.get('/user/current-user',{withCredentials:true}).catch((error)=>{
+    axios.get('/users/current-user',{withCredentials:true}).catch((error)=>{
       localStorage.removeItem("user")
     })
     axios.get('/restaurant/current-restaurant',{withCredentials:true}).catch((error)=>{

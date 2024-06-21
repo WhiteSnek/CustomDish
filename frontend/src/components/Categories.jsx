@@ -53,7 +53,7 @@ const CategoryCard = ({ item }) => {
 
     return (
         <Link to={`/${item.name.toLowerCase()}`} className="flex flex-col justify-center items-center bg-gray-100 p-4 rounded-lg">
-            <img src={image} alt='logo' className='h-40 aspect-square object-cover rounded-lg' />
+            <img src={image} alt={item.name} className='h-40 aspect-square object-cover rounded-lg' />
             <h2 className='text-lg font-semibold'>{item.name}</h2>
         </Link>
     );
