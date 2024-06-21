@@ -24,6 +24,14 @@ const orderSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Restaurant',
     },
+    status: {
+      type: String,
+      enum: ['delivered','placed','cancelled']
+    },
+    address: {
+      type: String,
+      required: true,
+    },
     customIngredients: {
         type: Schema.Types.ObjectId,
         ref: 'Ingredient',
