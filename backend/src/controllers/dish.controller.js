@@ -6,7 +6,6 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 const addDish = asyncHandler(async (req, res) => {
   const {name,description, category, price, isVeg, type} = req.body;
-  console.log(name,description,category,price,isVeg,type)
   if (!name || !category || !price)
     throw new ApiError(400, "Please enter all the details");
   const imageLocalPath = req.file?.path;

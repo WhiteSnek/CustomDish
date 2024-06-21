@@ -14,6 +14,8 @@ const Profile = () => {
       try {
         await axios.post('/users/logout',{},{withCredentials: true});
         window.location.href = '/';
+        
+        localStorage.removeItem('user');
         setUser(null)
       } catch(error){
         console.log(error);

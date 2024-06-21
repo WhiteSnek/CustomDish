@@ -43,7 +43,6 @@ const CategoryCard = ({ item }) => {
                         per_page: 1 
                     }
                 });
-                console.log(response.data.photos[0]?.src.original)
                 setImage(response.data.photos[0]?.src.original); // Update the image state with the response data
             } catch (error) {
                 console.error('Error fetching image:', error);

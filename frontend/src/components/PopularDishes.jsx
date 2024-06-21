@@ -25,19 +25,17 @@ const PopularDishes = () => {
   const getAllDishes = async() => {
     try {
       const response = await axios.get('/dish/all',{withCredentials: true});
-      console.log(response.data.data)
       setRecipes(response.data.data)
     } catch (error) {
       console.log(error)
     }
   }
-  console.log(recipes);
   return (
     <div className="p-6">
       <h1 className="text-4xl font-bold pb-10">Popular Dishes</h1>
     <div className="grid grid-cols-6 gap-6">
       {recipes.map((item, idx) => (
-        <DishesCard item={item} />
+        <DishesCard key={idx} item={item} />
       ))}
     </div>
     </div>

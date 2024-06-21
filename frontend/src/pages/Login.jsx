@@ -37,6 +37,7 @@ const Login = () => {
       );
       const userInfo = user.data.data.user;
       setUser(userInfo);
+      localStorage.setItem("user", JSON.stringify(userInfo));
       navigate("/");
     } catch (error) {
       // const errorMessage = error.response.data.match(

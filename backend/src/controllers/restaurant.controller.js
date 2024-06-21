@@ -32,6 +32,17 @@ const getAllRestaurants = asyncHandler( async(req,res)=>{
     .json(new ApiResponse(200, restaurants, "Restaurants fetched successfully"));
 })
 
+const getRestaurantById = asyncHandler( async(req,res)=>{
+  const id = req.params.id;
+  const restaurant = await Restaurant.findById(id).populate("dishes");
+  if (!restaurant) {
+    throw new ApiError(404, "Restaurant not found");
+    }
+    return res
+    .status(200)
+    .json(new ApiResponse(200, restaurant, "Restaurant fetched successfully"));
+})
+
 const addRating = asyncHandler( async(req,res)=>{
   const { rating, restaurantId } = req.body;
   const restaurant = await Restaurant.findByIdAndUpdate(restaurantId, {
@@ -267,7 +278,6 @@ const getCurrentRestaurant = asyncHandler( async(req,res) =>{
 
 const addDishes = asyncHandler( async(req,res)=>{
     const {dishId} = req.body
-    console.log(dishId)
     if(!dishId) throw new ApiError(400,"Dish does not exist")
     const restaurant = await Restaurant.findByIdAndUpdate(
         req.restaurant._id,
@@ -333,5 +343,6 @@ export {
   addDishes,
   getAllDishes,
   getAllRestaurants,
-  addRating
+  addRating,
+  getRestaurantById
 };

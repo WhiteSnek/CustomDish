@@ -33,24 +33,27 @@ const DishCard = ({item}) => {
 const RestaurantProfile = () => {
     const { restaurant, setRestaurant } = useContext(UserContext);
     const {id} = useParams()
+    const [rest,setRest] = useState(null)
     const [dishes,setDishes] = useState([])
     useEffect(()=>{
-      getDishes();
+      getRestaurant();
     },[dishes])
     const logoutUser = async() => {
       try {
         await axios.post('/restaurant/logout',{},{withCredentials: true});
         window.location.href = '/';
         setRestaurant(null)
+        localStorage.removeItem('restaurant');
       } catch(error){
         console.log(error);
       }
     }
-    const getDishes = async() => {
+    const getRestaurant = async() => {
       try {
-        const response = await axios.get(`/restaurant/dishes/${restaurant._id}`,{withCredentials: true})
+        const response = await axios.get(`/restaurant/${id}`,{withCredentials: true})
         console.log(response.data.data)
-        setDishes(response.data.data)
+        setRest(response.data.data)
+        setDishes(response.data.data.dishes)
       } catch (error) {
         console.log(error)
       }
@@ -60,13 +63,13 @@ const RestaurantProfile = () => {
     <div className='mx-auto w-3/4 my-10'>
       <div className='flex items-center gap-10 border-b-2 border-red-600 p-8'>
         <div>
-            <img src={restaurant.avatar} alt='avatar' className='h-40 aspect-square rounded-full border-2 border-gray-700' />
+            <img src={rest?.avatar} alt='avatar' className='h-40 aspect-square rounded-full border-2 border-gray-700' />
         </div>
         <div className='relative w-3/4'>
-            <h1 className='text-3xl font-semibold'>{restaurant.fullname}</h1>
-            <h1 className='text-xl font-thin text-gray-400'>{restaurant.email}</h1>
-            <h1 className='text-xl font-thin text-gray-400'>{restaurant.address}</h1>
-            {(id == restaurant._id) && <div className='absolute top-0 right-0 flex gap-2'>
+            <h1 className='text-3xl font-semibold'>{rest?.fullname}</h1>
+            <h1 className='text-xl font-thin text-gray-400'>{rest?.email}</h1>
+            <h1 className='text-xl font-thin text-gray-400'>{rest?.address}</h1>
+            {(id == restaurant?._id) && <div className='absolute top-0 right-0 flex gap-2'>
             <button className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Edit profile</button>
             <button onClick={()=>logoutUser()} className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Logout</button>
             </div>}
@@ -80,7 +83,7 @@ const RestaurantProfile = () => {
             )) }
             
         </div>
-        <div className="fixed bottom-0 right-0 px-10 py-4 w-full flex justify-end shadow-lg bg-slate-100"><Link to="/dishes" className='text-white bg-red-500 px-4 py-2 rounded-md text-lg'>Add dishes</Link></div>
+        {(id == restaurant?._id) && <div className="fixed bottom-0 right-0 px-10 py-4 w-full flex justify-end shadow-lg bg-slate-100"><Link to="/dishes" className='text-white bg-red-500 px-4 py-2 rounded-md text-lg'>Add dishes</Link></div>}
         
       </div>
     </div>
