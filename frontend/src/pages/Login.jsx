@@ -40,10 +40,10 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(userInfo));
       navigate("/");
     } catch (error) {
-      // const errorMessage = error.response.data.match(
-      //   /<pre>Error: (.*?)<br>/
-      // )[1];
-      // setError(errorMessage)
+      const errorMessage = error.response.data.match(
+        /<pre>Error: (.*?)<br>/
+      )[1];
+      setError(errorMessage)
       console.log(error)
     }
   };

@@ -74,7 +74,7 @@ const Profile = () => {
       </div>
       <div className='py-10'>
         <h1 className='text-3xl font-semibold'>Your orders</h1>
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-center gap-4'>
             {orders.length === 0 ? <div className='flex flex-col justify-start items-center gap-4'><p className='text-xl font-thin'>No orders found</p><button className='text-white bg-red-500 px-4 py-2 rounded-md text-lg'>Order something</button></div> : orders.map((item,idx)=>(
                 <OrderCard key={idx} item={item} />
             )) }
