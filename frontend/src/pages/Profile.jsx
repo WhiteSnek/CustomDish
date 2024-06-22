@@ -56,6 +56,7 @@ const Profile = () => {
         console.log(error);
       }
     }
+    console.log(user)
   return (
     <div className='mx-auto w-3/4 my-10'>
       <div className='flex items-center gap-10 border-b-2 border-red-600 p-8'>
@@ -67,7 +68,7 @@ const Profile = () => {
             <h1 className='text-2xl font-thin text-gray-500'>@{user?.username}</h1>
             <h1 className='text-xl font-thin text-gray-400'>{user?.email}</h1>
             <div className='absolute top-0 right-0 flex gap-2'>
-            <button className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Edit profile</button>
+            <Link to={'/edit'} className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Edit profile</Link>
             <button onClick={()=>logoutUser()} className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Logout</button>
             </div>
         </div>

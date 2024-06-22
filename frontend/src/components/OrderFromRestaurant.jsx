@@ -18,7 +18,13 @@ const RestaurantCard = ({ item, dish }) => {
     chilli: 0,
   });
   const [paymentType, setPaymentType] = useState("");
+  const [editMode,setEditMode] = useState(false)
+  
   const { user } = useContext(UserContext);
+  const [address,setAddress] = useState(user?.address)
+  const editEditMode = () => {
+    setEditMode(!editMode)
+  }
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
@@ -41,7 +47,6 @@ const RestaurantCard = ({ item, dish }) => {
       const dishId = dish._id;
       const restaurantId = item._id;
       const price = quantity * dish.price;
-      const address = "Bhajanpura";
       const addIngredient = await axios.post("/ingredient/", ingredients, {
         withCredentials: true,
       });
@@ -82,6 +87,7 @@ const RestaurantCard = ({ item, dish }) => {
       setError(errorMessage);
     }
   };
+  console.log(user)
   return (
     <div className="bg-gray-100 p-8 rounded-lg hover:shadow-xl">
       <Link
@@ -200,10 +206,11 @@ const RestaurantCard = ({ item, dish }) => {
                 </p>
               </div>
               <div className="flex justify-between py-4 text-lg font-thin">
-                <p>
-                  Deliver to: {user?.address ? user.address : "Add address"}
-                </p>
-                <button className="underline text-blue-700">Change</button>
+              <p className="flex gap-2 items-center w-full">
+              Deliver to:
+                {editMode ? <input type="text" defaultValue={address} onBlur={()=>setEditMode(false)} onChange={(e)=>setAddress(e.target.value)} className="outline-none border w-3/4 border-gray-700 py-2 px-4 rounded-lg" /> : <p> {address ? address : <Link to='/edit/#edit-address' className="underline">Add address</Link> }</p>
+                }</p>
+                <button onClick={editEditMode} className="underline text-blue-700">Change</button>
               </div>
               <div>
                 <h1 className="text-lg font-semibold pb-2">

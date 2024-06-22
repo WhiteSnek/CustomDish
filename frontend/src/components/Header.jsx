@@ -16,7 +16,7 @@ export default function Header() {
         </Link>
         <div className="px-4 w-30">
           {/* Address of user */}
-          <p>Deliver to Address</p>
+          <p>Deliver to {user?.address ? user.address : "address" }</p>
         </div>
         <div className="w-1/3 shadow">
           {/* Search bar */}

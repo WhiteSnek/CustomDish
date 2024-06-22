@@ -185,7 +185,7 @@ const refreshAccessToken = asyncHandler( async(req,res) =>{
 const addAddress = asyncHandler( async(req,res) => {
     const {address} = req.body
     if(!address) throw new ApiError(400, "Address is required")
-    const response = await User.findById(req.user._id, {
+    const response = await User.findByIdAndUpdate(req.user._id, {
         $set: {
             address
         }
