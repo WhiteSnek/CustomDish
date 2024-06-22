@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import OrderFromRestaurant from "../components/OrderFromRestaurant";
 
 const Dish = () => {
   const [dish, setDish] = useState(null);
@@ -38,7 +39,9 @@ const Dish = () => {
           </div>
           
         </div>
+        
       </div>
+      <OrderFromRestaurant dish={dish} />
     </div>
   );
 };
