@@ -22,12 +22,13 @@ router.route("/register").post(upload.single("avatar"), registerRestaurant);
 router.route("/login").post(loginRestaurant);
 router.route("/logout").post(verifyResJWT, logoutRestaurant);
 router.route("/refresh-token").post(refreshAccessToken)
-router.route("/update-address").patch(verifyResJWT, updateRestaurantAddresss)
+router.route("/update-address").patch(verifyResJWT, updateRestaurantAddresss)//TODO:
 router.route("/current-restaurant").get(getCurrentRestaurant)
 router.route("/dishes").post(verifyResJWT, addDishes)
+//TODO: Remove dish from restaurant
 router.route("/dishes/:id").get(getAllDishes)
 router.route("/restaurants").get(getAllRestaurants)
 router.route("/:id").get(getRestaurantById)
-router.route("/rating").post(addRating)
+router.route("/rating").post(addRating)//TODO:
 
 export default router;

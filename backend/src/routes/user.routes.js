@@ -11,7 +11,10 @@ import {
     getUserProfile,
     getOrders,
     addOrder,
-    addAddress
+    addAddress,
+    addToUserCart,
+    getCart,
+    removeFromCart
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -33,5 +36,7 @@ router.route("/c/:username").get(verifyJWT, getUserProfile);
 router.route("/orders").get(verifyJWT, getOrders);
 router.route("/orders/:orderId").post(verifyJWT, addOrder);
 router.route("/address").post(verifyJWT, addAddress);
+router.route("/cart").post(verifyJWT, addToUserCart).get(verifyJWT, getCart)
+router.route("/remove-cart/:itemId").delete(verifyJWT,removeFromCart)
 
 export default router;

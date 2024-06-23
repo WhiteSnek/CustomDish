@@ -7,8 +7,8 @@ import { upload } from "../middlewares/multer.middleware.js";
 const router = Router();
 
 router.route("/add").post(upload.single("image"),addDish);
-router.route("/remove/:id").delete(removeDish);
-router.route("/update/:id").patch(updateDish);
+router.route("/remove/:id").delete(removeDish); //TODO:
+router.route("/update/:id").patch(updateDish); //TODO:
 router.route("/all").get(getAllDishes)
 router.route("/:id").get(getDishById)
 

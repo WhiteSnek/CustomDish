@@ -18,13 +18,13 @@ const RestaurantCard = ({ item, dish }) => {
     chilli: 0,
   });
   const [paymentType, setPaymentType] = useState("");
-  const [editMode,setEditMode] = useState(false)
-  
-  const { user } = useContext(UserContext);
-  const [address,setAddress] = useState(user?.address)
+  const [editMode, setEditMode] = useState(false);
+
+  const { user,setUser } = useContext(UserContext);
+  const [address, setAddress] = useState(user?.address);
   const editEditMode = () => {
-    setEditMode(!editMode)
-  }
+    setEditMode(!editMode);
+  };
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
@@ -87,7 +87,58 @@ const RestaurantCard = ({ item, dish }) => {
       setError(errorMessage);
     }
   };
-  console.log(user)
+  console.log(user);
+
+
+  const addToCart = async() => {
+    try {
+      const dishId = dish._id;
+      const restaurantId = item._id;
+      const price = quantity * dish.price;
+      const addIngredient = await axios.post("/ingredient/", ingredients, {
+        withCredentials: true,
+      });
+      console.log(addIngredient)
+      const ingredientId = addIngredient.data._id;
+      const response = await axios.post(
+        "/cart/add",
+        {
+          dishId,
+          quantity,
+          price,
+          address,
+          restaurantId,
+          ingredientId,
+        },
+        { withCredentials: true }
+      );
+      console.log(response)
+      const cartId = response.data.data._id;
+      console.log(cartId)
+      const cart = await axios
+        .post(`/users/cart`, {cartId}, { withCredentials: true })
+        .then((result) => {
+          if (result) {
+            setQuantity(1);
+            setIngredients({
+              salt: 0,
+              sugar: 0,
+              onion: 0,
+              garlic: 0,
+              chilli: 0,
+            });
+            setPaymentType("");
+          }
+        });
+        // setUser(cart.data.data)
+        console.log("cart",cart)
+    } catch (error) {
+      const errorMessage = error.response.data.match(
+        /<pre>Error: (.*?)<br>/
+      )[1];
+      setError(errorMessage);
+    }
+  }
   return (
     <div className="bg-gray-100 p-8 rounded-lg hover:shadow-xl">
       <Link
@@ -206,11 +257,35 @@ const RestaurantCard = ({ item, dish }) => {
                 </p>
               </div>
               <div className="flex justify-between py-4 text-lg font-thin">
-              <p className="flex gap-2 items-center w-full">
-              Deliver to:
-                {editMode ? <input type="text" defaultValue={address} onBlur={()=>setEditMode(false)} onChange={(e)=>setAddress(e.target.value)} className="outline-none border w-3/4 border-gray-700 py-2 px-4 rounded-lg" /> : <p> {address ? address : <Link to='/edit/#edit-address' className="underline">Add address</Link> }</p>
-                }</p>
-                <button onClick={editEditMode} className="underline text-blue-700">Change</button>
+                <p className="flex gap-2 items-center w-full">
+                  Deliver to:
+                  {editMode ? (
+                    <input
+                      type="text"
+                      defaultValue={address}
+                      onBlur={() => setEditMode(false)}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="outline-none border w-3/4 border-gray-700 py-2 px-4 rounded-lg"
+                    />
+                  ) : (
+                    <p>
+                      {" "}
+                      {address ? (
+                        address
+                      ) : (
+                        <Link to="/edit/#edit-address" className="underline">
+                          Add address
+                        </Link>
+                      )}
+                    </p>
+                  )}
+                </p>
+                <button
+                  onClick={editEditMode}
+                  className="underline text-blue-700"
+                >
+                  Change
+                </button>
               </div>
               <div>
                 <h1 className="text-lg font-semibold pb-2">
@@ -370,7 +445,9 @@ const RestaurantCard = ({ item, dish }) => {
                 </div>
               </form>
               <div className="grid grid-cols-2 gap-4 pt-8 px-8">
-                <button className="py-2 px-4 font-semibold text-white bg-yellow-500 rounded-lg">
+                <button onClick={addToCart}
+                  className="py-2 px-4 font-semibold text-white bg-yellow-500 rounded-lg"
+                >
                   Add to cart
                 </button>
                 <button

@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { IconContext } from "react-icons/lib";
 import { CiShoppingCart } from "react-icons/ci";
 import Logo from "../assets/logo.png";
 import UserContext from "../context/UserContext";
+import axios from "axios";
 
 export default function Header() {
   const { user,restaurant } = useContext(UserContext);
@@ -12,14 +13,14 @@ export default function Header() {
       <div className="flex justify-between items-center gap-10 px-10 py-2">
         <Link to="/" className="flex gap-4 justify-center items-center">
           <img src={Logo} alt="logo" className="h-14" />
-          <p className="text-lg text-red-900 font-bold">Culinary.com</p>
+          <p className="text-lg text-red-900 font-bold">CustomDish.com</p>
         </Link>
         <div className="px-4 w-30">
           {/* Address of user */}
           <p>Deliver to {user?.address ? user.address : "address" }</p>
         </div>
         <div className="w-1/3 shadow">
-          {/* Search bar */}
+          {/* TODO: Add functionality to search bar */}
           <form className="relative">
             <input
               type="text"
@@ -35,12 +36,15 @@ export default function Header() {
           </form>
         </div>
         <div>{/* region */}</div>
-        <div className="flex gap-2 justify-center items-center ">
+        <div className="flex gap-2 justify-center items-center relative">
           {/*cart and user  */}
           <Link to="/cart" className="p-4 rounded-full hover:bg-gray-100">
             <IconContext.Provider value={{ size: "25px" }}>
               <CiShoppingCart />
             </IconContext.Provider>
+            {user && <div className="absolute top-0 left-0 m-3 flex justify-center bg-red-800 text-white rounded-full w-4 text-xs h-4">
+              {user?.cart.length}
+            </div>}
           </Link>
           {user || restaurant ? (
             <Link to={user ? "/profile": `restaurantProfile/${restaurant._id}`}>

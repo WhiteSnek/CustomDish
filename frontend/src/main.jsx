@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import {Home,Register,Login, Profile, RestaurantLogin, RestaurantProfile, Dishes, RegisterRestaurant, Dish, EditProfile} from './pages'
+import {Home,Register,Login, Profile, RestaurantLogin, RestaurantProfile, Dishes, RegisterRestaurant, Dish, EditProfile, Cart} from './pages'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import UserContextProvider from './context/UserContextProvider.jsx'
 import axios from 'axios'
@@ -22,6 +22,7 @@ const Layout = () => {
         <Route path='dishes' element={<Dishes />} />
         <Route path='dish/:id' element={<Dish />} />
         <Route path='edit' element={<EditProfile />} />
+        <Route path='cart' element={<Cart />} />
       </Route>
     )
   )

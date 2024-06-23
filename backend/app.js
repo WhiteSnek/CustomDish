@@ -49,6 +49,7 @@ import dishRouter from './src/routes/dishes.routes.js'
 import restaurantRouter from './src/routes/restaurants.routes.js'
 import orderRouter from './src/routes/order.routes.js'
 import ingredientRouter from './src/routes/ingredients.routes.js'
+import cartRouter from './src/routes/cart.routes.js'
 
 app.get('/',(req,res)=>{
     res.json('hello')
@@ -61,5 +62,6 @@ app.use("/api/v1/dish", dishRouter)
 app.use("/api/v1/restaurant", restaurantRouter)
 app.use("/api/v1/order",orderRouter)
 app.use("/api/v1/ingredient",ingredientRouter)
+app.use("/api/v1/cart",cartRouter)
 
 export {app}
