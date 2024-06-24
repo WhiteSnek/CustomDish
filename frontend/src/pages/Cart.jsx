@@ -32,9 +32,9 @@ const CartItem = ({item, getCart}) => {
     try{
       const cartId = item._id;
         const removeFromUserCart = await axios.delete(`/users/remove-cart/${cartId}`,{withCredentials: true})
-        console.log(removeFromUserCart)
+
         const removeFromCart = await axios.delete(`/cart/remove/${item._id}`,{},{withCredentials: true});
-        console.log(removeFromCart)
+
         getCart()
     } catch(error){
       console.log(error)
@@ -80,9 +80,9 @@ const CartItem = ({item, getCart}) => {
         });
         const cartId = item._id;
         const removeFromUserCart = await axios.delete('/users/cart',{cartId},{withCredentials: true})
-        console.log(removeFromUserCart)
+
         const removeFromCart = await axios.delete(`/cart/remove/${item._id}`,{withCredentials: true});
-        console.log(removeFromCart)
+
     } catch (error) {
       console.log(error)
     }
@@ -304,7 +304,7 @@ const Cart = () => {
   const getCart = async()=>{
     try {
       const response = await axios.get('/users/cart',{withCredentials: true})
-      console.log(response)
+
       setCart(response.data.data)
     } catch (error) {
       console.log(error)

@@ -87,7 +87,6 @@ const RestaurantCard = ({ item, dish }) => {
       setError(errorMessage);
     }
   };
-  console.log(user);
 
 
   const addToCart = async() => {
@@ -98,7 +97,6 @@ const RestaurantCard = ({ item, dish }) => {
       const addIngredient = await axios.post("/ingredient/", ingredients, {
         withCredentials: true,
       });
-      console.log(addIngredient)
       const ingredientId = addIngredient.data._id;
       const response = await axios.post(
         "/cart/add",
@@ -112,9 +110,9 @@ const RestaurantCard = ({ item, dish }) => {
         },
         { withCredentials: true }
       );
-      console.log(response)
+
       const cartId = response.data.data._id;
-      console.log(cartId)
+
       const cart = await axios
         .post(`/users/cart`, {cartId}, { withCredentials: true })
         .then((result) => {
@@ -131,7 +129,7 @@ const RestaurantCard = ({ item, dish }) => {
           }
         });
         // setUser(cart.data.data)
-        console.log("cart",cart)
+
     } catch (error) {
       const errorMessage = error.response.data.match(
         /<pre>Error: (.*?)<br>/

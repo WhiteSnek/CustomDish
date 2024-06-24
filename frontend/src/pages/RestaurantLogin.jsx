@@ -35,7 +35,7 @@ const RestaurantLogin = () => {
           withCredentials: true,
         }
       );
-      console.log(user.data.data.restaurant)
+
       const userInfo = user.data.data.restaurant;
       localStorage.setItem("restaurant", JSON.stringify(userInfo));
       setRestaurant(userInfo);

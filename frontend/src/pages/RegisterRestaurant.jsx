@@ -72,7 +72,7 @@ const RegisterRestaurant = () => {
     formData.append("address", address);
     formData.append("password", password);
     formData.append("avatar", avatar);
-    console.log(formData)
+
     const user = await axios.post("/restaurant/register", formData, {
       withCredentials: true,
     });

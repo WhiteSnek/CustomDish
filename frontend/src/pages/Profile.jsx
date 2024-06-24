@@ -37,7 +37,7 @@ const Profile = () => {
     const getOrders = async () => {
       try {
         const response = await axios.get('/users/orders',{withCredentials: true})
-        console.log(response.data.data)
+
         setOrders(response.data.data)
       } catch (error) {
         const errorMessage = error.response.data.match(
@@ -56,7 +56,6 @@ const Profile = () => {
         console.log(error);
       }
     }
-    console.log(user)
   return (
     <div className='mx-auto w-3/4 my-10'>
       <div className='flex flex-col sm:flex-row items-center gap-10 border-b-2 border-red-600 p-8'>

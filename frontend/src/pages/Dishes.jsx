@@ -12,7 +12,7 @@ const DishCard = ({ item,restaurantDishes,setRestaurantDishes }) => {
     try {
         const response = await axios.post('/restaurant/dishes',{dishId},{withCredentials: true})
         setRestaurantDishes([...restaurantDishes, item._id])
-        console.log(restaurantDishes)
+
     } catch (error) {
         console.log(error)
     }
@@ -84,13 +84,13 @@ const Dishes = () => {
   const getResDishes = async() => {
     try {
       const response = await axios.get(`/restaurant/dishes/${restaurant._id}`,{withCredentials: true})
-      console.log(response.data.data)
+      (response.data.data)
       setRestaurantDishes(response.data.data.map(item => item._id))
     } catch (error) {
       console.log(error)
     }
   }
-  console.log(restaurantDishes)
+
   const getDishes = async () => {
     try {
       const response = await axios.get("/dish/all", { withCredentials: true });
@@ -122,11 +122,11 @@ const Dishes = () => {
       formData.append("category", category);
       formData.append("price", price);
       formData.append("image", image);
-      console.log(formData);
+
       const response = await axios.post("/dish/add", formData, {
         withCredentials: true,
       });
-      console.log(response);
+
       setDetails({name: "",
         description: '',
         category: "",

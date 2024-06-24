@@ -51,7 +51,7 @@ const RestaurantProfile = () => {
     const getRestaurant = async() => {
       try {
         const response = await axios.get(`/restaurant/${id}`,{withCredentials: true})
-        console.log(response.data.data)
+
         setRest(response.data.data)
         setDishes(response.data.data.dishes)
       } catch (error) {

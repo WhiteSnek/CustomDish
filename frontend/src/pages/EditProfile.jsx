@@ -42,7 +42,7 @@ const EditProfile = () => {
   const updateDetails = async(e) =>{
     e.preventDefault()
     let {fullname, email} = details;
-    console.log(fullname,email)
+  
     if(fullname === '') fullname = user?.fullname;
     if(email === '') email = user?.email;
     
@@ -63,9 +63,9 @@ const EditProfile = () => {
     if(address === '') address = user?.address;
     try {
         const response = await axios.post('/users/address',{address},{withCredentials: true});
-        console.log(response)
+
         setUser(response.data.data)
-        console.log(user)
+
     } catch (error) {
         const errorMessage = error.response.data.match(
             /<pre>Error: (.*?)<br>/

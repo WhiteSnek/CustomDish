@@ -288,7 +288,6 @@ const getCart = asyncHandler(async (req, res) => {
 });
 
 const removeFromCart = asyncHandler(async (req, res) => {
-  console.log(req.user._id);
   const user = await User.findByIdAndUpdate(
     req.user._id,
     {

@@ -66,7 +66,6 @@ const deleteOrder = asyncHandler(async (req, res) => {
 
 const getOrderDetails = asyncHandler(async (req, res) => {
   const { orderId } = req.params;
-  console.log(orderId);
   // const order = await Order.findById(orderId).populate("restaurant").populate("customIngredients").populate("dish");
   const order = await Order.aggregate([
     {
