@@ -51,11 +51,11 @@ const Login = () => {
     setShow((prevShowPassword) => !prevShowPassword);
   };
   return (
-    <div className=" bg-pink-200 rounded-lg w-4/5 h-[80vh] mx-auto my-5 shadow-lg grid grid-cols-12">
-      <div className="col-span-6">
+    <div className=" bg-pink-200 rounded-lg w-4/5 h-[80vh] mx-auto my-5 shadow-lg grid sm:grid-cols-12">
+      <div className="col-span-6 hidden sm:block">
         <img src={BGImage} alt="bg-image" className="h-[80vh] aspect-square" />
       </div>
-      <div className="col-span-6 p-12 h-full flex flex-col justify-center items-center">
+      <div className="col-span-6 p-6 sm:p-12 h-full flex flex-col justify-center items-center">
         <h3 className="text-5xl font-bold text-gray-800 pb-5 text-center">
           Sign in
         </h3>
@@ -93,7 +93,7 @@ const Login = () => {
               Forgot password?
             </Link>
             <button
-              className="bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:ring focus:border-gray-300"
+              className="bg-gray-800 text-white text-sm sm:text-md py-2 px-2 sm:px-4 rounded-md hover:bg-gray-600 focus:outline-none focus:ring focus:border-gray-300"
               type="submit"
             >
               Sign In

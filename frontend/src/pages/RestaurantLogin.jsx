@@ -52,13 +52,13 @@ const RestaurantLogin = () => {
     setShow((prevShowPassword) => !prevShowPassword);
   };
   return (
-    <div className=" bg-pink-200 rounded-lg w-4/5 h-[80vh] mx-auto my-5 shadow-lg grid grid-cols-12">
-      <div className="col-span-6">
+    <div className=" bg-pink-200 rounded-lg w-4/5 h-[80vh] mx-auto my-5 shadow-lg grid sm:grid-cols-12">
+      <div className="col-span-6 hidden sm:block">
         <img src={BGImage} alt="bg-image" className="h-[80vh] aspect-square" />
       </div>
-      <div className="col-span-6 p-12 h-full flex flex-col justify-center items-center">
-        <h3 className="text-5xl font-bold text-gray-800 pb-5 text-center">
-          Sign in
+      <div className="col-span-6 p-6 sm:p-12 h-full flex flex-col justify-center items-center">
+        <h3 className="text-xl sm:text-5xl font-bold text-gray-800 pb-5 text-center">
+          Sign in as Restaurant
         </h3>
         <form className="space-y-4 p" onSubmit={handleSubmit}>
           <label htmlFor="username">User name:</label>

@@ -61,23 +61,23 @@ const RestaurantProfile = () => {
 
   return (
     <div className='mx-auto w-3/4 my-10'>
-      <div className='flex items-center gap-10 border-b-2 border-red-600 p-8'>
+      <div className='flex flex-col sm:flex-row justify-center sm:items-center gap-10 border-b-2 border-red-600 p-8'>
         <div>
             <img src={rest?.avatar} alt='avatar' className='h-40 aspect-square rounded-full border-2 border-gray-700' />
         </div>
-        <div className='relative w-3/4'>
-            <h1 className='text-3xl font-semibold'>{rest?.fullname}</h1>
-            <h1 className='text-xl font-thin text-gray-400'>{rest?.email}</h1>
-            <h1 className='text-xl font-thin text-gray-400'>{rest?.address}</h1>
-            {(id == restaurant?._id) && <div className='absolute top-0 right-0 flex gap-2'>
-            <button className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Edit profile</button>
-            <button onClick={()=>logoutUser()} className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Logout</button>
+        <div className='relative w-full sm:w-3/4'>
+            <h1 className='text-lg sm:text-3xl font-semibold'>{rest?.fullname}</h1>
+            <h1 className='text-md sm:text-2xl font-thin text-gray-400'>{rest?.email}</h1>
+            <h1 className='text-sm sm:text-xl font-thin text-gray-400'>{rest?.address}</h1>
+            {(id == restaurant?._id) && <div className='absolute top-0 -right-10 sm:right-0 flex flex-col sm:flex-row gap-2'>
+            <button className=' bg-red-500 px-2 sm:px-4 py-2 text-white text-sm sm:text-md rounded-sm'>Edit profile</button>
+            <button onClick={()=>logoutUser()} className=' bg-red-500 px-2 sm:px-4 py-2 text-sm sm:text-md text-white rounded-sm'>Logout</button>
             </div>}
         </div>
       </div>
       <div className='py-10'>
         <h1 className='text-3xl font-semibold'>Available Dishes</h1>
-        <div className='grid grid-cols-4 max-h-max gap-3 justify-center items-center py-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-4 max-h-max gap-3 justify-center items-center py-4'>
             {dishes.length === 0 ? <div className='flex flex-col justify-start items-center gap-4'><p className='text-xl font-thin'>No dishes found</p></div> : dishes.map((item,idx)=>(
                 <DishCard key={idx} item={item} />
             )) }

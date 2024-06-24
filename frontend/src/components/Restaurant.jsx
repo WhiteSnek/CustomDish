@@ -39,7 +39,7 @@ const Restaurant = () => {
   return (
     <div className='p-8'>
       <h1 className='text-4xl font-bold px-4 pb-10'>Best Restaurants in Delhi</h1>
-    <div className='grid grid-cols-3 gap-12'>
+    <div className='grid grid-cols-1 sm:grid-cols-3 gap-12'>
         {restaurants.map((item,idx)=>(
             <RestaurantCard key={idx} item={item} />
         ))}

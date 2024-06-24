@@ -9,17 +9,17 @@ import axios from "axios";
 export default function Header() {
   const { user,restaurant } = useContext(UserContext);
   return (
-    <header className="shadow">
-      <div className="flex justify-between items-center gap-10 px-10 py-2">
+    <header className="shadow w-full">
+      <div className="flex justify-between items-center sm:gap-10 px-2 sm:px-10 py-2">
         <Link to="/" className="flex gap-4 justify-center items-center">
-          <img src={Logo} alt="logo" className="h-14" />
-          <p className="text-lg text-red-900 font-bold">CustomDish.com</p>
+          <img src={Logo} alt="logo" className="h-10 sm:h-14 aspect-square" />
+          {window.innerWidth > 768 && <p className="text-lg text-red-900 font-bold">CustomDish.com</p>}
         </Link>
-        <div className="px-4 w-30">
+        <div className="px-4 w-18 sm:w-30">
           {/* Address of user */}
-          <p>Deliver to {user?.address ? user.address : "address" }</p>
+          <p className="text-xs sm:text-md">Deliver to {user?.address ? user.address : "address" }</p>
         </div>
-        <div className="w-1/3 shadow">
+        <div className="w-1/3 shadow sm:block hidden">
           {/* TODO: Add functionality to search bar */}
           <form className="relative">
             <input
@@ -38,15 +38,17 @@ export default function Header() {
         <div>{/* region */}</div>
         <div className="flex gap-2 justify-center items-center relative">
           {/*cart and user  */}
-          <Link to="/cart" className="p-4 rounded-full hover:bg-gray-100">
+          
+          {user || restaurant ? (
+            <div className="flex justify-center items-center gap-2">
+              {user && <Link to="/cart" className="p-4 rounded-full hover:bg-gray-100">
             <IconContext.Provider value={{ size: "25px" }}>
               <CiShoppingCart />
             </IconContext.Provider>
             {user && <div className="absolute top-0 left-0 m-3 flex justify-center bg-red-800 text-white rounded-full w-4 text-xs h-4">
               {user?.cart.length}
             </div>}
-          </Link>
-          {user || restaurant ? (
+          </Link>}
             <Link to={user ? "/profile": `restaurantProfile/${restaurant._id}`}>
               <img
                 src={user?.avatar || restaurant?.avatar}
@@ -54,17 +56,19 @@ export default function Header() {
                 className="h-10 w-10 rounded-full object-cover"
               />
             </Link>
+            
+            </div>
           ) : (
             <div className="flex w-full justify-center items-center">
               <Link
                 to="/restaurantLogin"
-                className="hover:text-black text-gray-600 text-md hover:underline px-4 py-2 rounded-lg w-full"
+                className="hover:text-black text-gray-600 text-xs sm:text-lg hover:underline px-4 py-2 rounded-lg w-full"
               >
                 Add Restaurant
               </Link>
               <Link
                 to="/login"
-                className="hover:text-black text-gray-600 text-lg hover:bg-gray-100 px-4 py-2 rounded-lg"
+                className="hover:text-black text-gray-600 text-xs sm:text-lg hover:bg-gray-100 px-4 py-2 rounded-lg"
               >
                 Login
               </Link>

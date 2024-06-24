@@ -104,7 +104,7 @@ const CartItem = ({item, getCart}) => {
         
         <Popup
           contentStyle={{
-            width: "50%",
+            width: window.innerWidth > 768 ? "50%" :"80%",
             borderRadius: "10px",
             maxHeight: "100vh",
             overflow: "scroll",
@@ -116,7 +116,7 @@ const CartItem = ({item, getCart}) => {
           nested
         >
           {(close) => (
-            <div className="p-10">
+            <div className="p-4 sm:p-10">
               <div className="flex justify-between pb-4">
                 <h1 className="text-2xl font-semibold">Complete the details:</h1>{" "}
                 <button onClick={() => close()}>
@@ -127,7 +127,7 @@ const CartItem = ({item, getCart}) => {
                 <h1 className="text-lg font-semibold pb-2">
                   Select extra ingredients:{" "}
                 </h1>
-                <div className="overflow-scroll max-h-40 grid grid-cols-2 gap-4">
+                <div className="overflow-scroll max-h-40 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div
                     className={`${
                       item.dish[0].type === "sweet" &&
@@ -246,11 +246,11 @@ const CartItem = ({item, getCart}) => {
                   </div>
                 </div>
               </div>
-              <form className="p-4 border-2 border-gray-400 rounded-lg m-4 flex justify-between items-center">
-                <h1 className="text-xl font-semibold py-2">
+              <form className="p-4 border-2 border-gray-400 rounded-lg m-4 flex flex-col sm:flex-row justify-between items-center">
+                <h1 className="text-md sm:text-xl font-semibold py-2">
                   Select a mode of payment:
                 </h1>
-                <div className="w-1/2">
+                <div className="w-full sm:w-1/2">
                   <div className="flex justify-between">
                     <label htmlFor="cash">Cash</label>
                     <input
@@ -311,7 +311,7 @@ const Cart = () => {
     }
   }
     return (
-        <div className='p-4 grid grid-cols-5 gap-4'>
+        <div className='p-4 grid grid-cols-1 sm:grid-cols-5  gap-4'>
             {cart.map((item,idx) => (
               <CartItem key={idx} item={item} getCart={getCart} />
             ))}

@@ -59,23 +59,23 @@ const Profile = () => {
     console.log(user)
   return (
     <div className='mx-auto w-3/4 my-10'>
-      <div className='flex items-center gap-10 border-b-2 border-red-600 p-8'>
+      <div className='flex flex-col sm:flex-row items-center gap-10 border-b-2 border-red-600 p-8'>
         <div>
             <img src={user?.avatar} alt='avatar' className='h-40 aspect-square rounded-full border-2 border-gray-700' />
         </div>
-        <div className='relative w-3/4'>
-            <h1 className='text-3xl font-semibold'>{user?.fullname}</h1>
-            <h1 className='text-2xl font-thin text-gray-500'>@{user?.username}</h1>
-            <h1 className='text-xl font-thin text-gray-400'>{user?.email}</h1>
-            <div className='absolute top-0 right-0 flex gap-2'>
-            <Link to={'/edit'} className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Edit profile</Link>
-            <button onClick={()=>logoutUser()} className=' bg-red-500 px-4 py-2 text-white rounded-sm'>Logout</button>
+        <div className='relative w-full sm:w-3/4'>
+            <h1 className='text-lg sm:text-3xl font-semibold'>{user?.fullname}</h1>
+            <h1 className='text-md sm:text-2xl font-thin text-gray-500'>@{user?.username}</h1>
+            <h1 className='text-sm sm:text-xl font-thin text-gray-400'>{user?.email}</h1>
+            <div className='absolute top-0 -right-10 sm:right-0 flex flex-col sm:flex-row gap-2'>
+            <Link to={'/edit'} className=' bg-red-500 px-2 sm:px-4 py-2 text-sm sm:text-md text-white rounded-sm'>Edit profile</Link>
+            <button onClick={()=>logoutUser()} className=' bg-red-500 px-2 sm:px-4 text-sm sm:text-md py-2 text-white rounded-sm'>Logout</button>
             </div>
         </div>
       </div>
       <div className='py-10'>
         <h1 className='text-3xl font-semibold pb-8'>Your orders</h1>
-        <div className='grid grid-cols-4 gap-4'>
+        <div className='grid sm:grid-cols-4 gap-4'>
             {orders.length === 0 ? <div className='flex flex-col justify-start items-center gap-4'><p className='text-xl font-thin'>No orders found</p><button className='text-white bg-red-500 px-4 py-2 rounded-md text-lg'>Order something</button></div> : orders.map((item,idx)=>(
                 <OrderCard key={idx} item={item} />
             )) }

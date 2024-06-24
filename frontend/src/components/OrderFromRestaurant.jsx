@@ -166,7 +166,7 @@ const RestaurantCard = ({ item, dish }) => {
 
         <Popup
           contentStyle={{
-            width: "50%",
+            width: window.innerWidth > 768 ? "50%" :"80%",
             borderRadius: "10px",
             maxHeight: "100vh",
             overflow: "scroll",
@@ -180,29 +180,29 @@ const RestaurantCard = ({ item, dish }) => {
           nested
         >
           {(close) => (
-            <div className="p-10">
+            <div className="p-2 sm:p-10">
               <div className="flex justify-between pb-4">
-                <h1 className="text-2xl font-semibold">Place an Order</h1>{" "}
+                <h1 className="text-lg sm:text-2xl font-semibold">Place an Order</h1>{" "}
                 <button onClick={() => close()}>
                   <RxCross1 />
                 </button>
               </div>
 
-              <div className="grid grid-cols-12 py-8 px-4 border-b-2 border-red-500">
+              <div className="grid grid-cols-1 sm:grid-cols-12 py-8 px-2 px-auto sm:px-4 border-b-2 border-red-500">
                 <div className="col-span-4">
                   <img
                     src={dish?.image}
                     alt={dish?.name}
-                    className="aspect-square h-40 object-cover rounded-xl"
+                    className="aspect-square h-40 object-cover rounded-xl mx-auto sm:mx-0"
                   />
                 </div>
                 <div className="col-span-8">
-                  <h1 className="text-xl font-bold ">{dish?.name}</h1>
+                  <h1 className="text-xl font-bold pt-2 sm:pt-0">{dish?.name}</h1>
                   <p className="font-thin text-sm text-gray-800">
                     {dish?.description}
                   </p>
                   <div className="flex items-center justify-between py-2">
-                    <p className="font-semibold text-xl">
+                    <p className="font-semibold text-md sm:text-xl">
                       Price: ₹ {dish?.price}/-
                     </p>
                     <div className="flex gap-4 items-center">
@@ -223,20 +223,20 @@ const RestaurantCard = ({ item, dish }) => {
                 </div>
               </div>
               <div className="py-4">
-                <h2 className="text-xl font-semibold">
+                <h2 className="text-md sm:text-xl font-semibold">
                   Ordering from: {item.fullname}
                 </h2>
                 <div className="flex justify-between">
-                  <p className="text-lg font-thin">{item.address}</p>
+                  <p className="text-sm sm:text-lg font-thin">{item.address}</p>
                   <p className="bg-green-800 text-white px-2 py-1 rounded-lg">
                     {item.rating}
                   </p>
                 </div>
               </div>
               <div className="flex justify-between items-center">
-                <div className="flex gap-4 text-lg items-center">
+                <div className="flex flex-col sm:flex-row gap-4 text-md sm:text-lg items-center">
                   <h3>Quantity: </h3>
-                  <div className="  border border-gray-700 rounded-md flex gap-4 justify-center items-center">
+                  <div className="  border border-gray-700 rounded-md flex gap-2 sm:gap-4 justify-center items-center">
                     <button
                       onClick={handleIncrement}
                       className="bg-gray-200 p-2 border-r border-gray-700"
@@ -252,7 +252,7 @@ const RestaurantCard = ({ item, dish }) => {
                     </button>
                   </div>
                 </div>
-                <p className="text-lg font-bold">
+                <p className="text-md sm:text-lg font-bold">
                   Total: ₹ {dish.price * quantity}/-
                 </p>
               </div>
@@ -288,10 +288,10 @@ const RestaurantCard = ({ item, dish }) => {
                 </button>
               </div>
               <div>
-                <h1 className="text-lg font-semibold pb-2">
+                <h1 className="text-md sm:text-lg font-semibold pb-2">
                   Select extra ingredients:{" "}
                 </h1>
-                <div className="overflow-scroll max-h-40 grid grid-cols-2 gap-4">
+                <div className="overflow-scroll max-h-40 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div
                     className={`${
                       dish.type === "sweet" &&
@@ -410,11 +410,11 @@ const RestaurantCard = ({ item, dish }) => {
                   </div>
                 </div>
               </div>
-              <form className="p-4 border-2 border-gray-400 rounded-lg m-4 flex justify-between items-center">
-                <h1 className="text-xl font-semibold py-2">
+              <form className="p-4 border-2 border-gray-400 rounded-lg m-4 flex flex-col sm:flex-row justify-between items-center">
+                <h1 className="text-md sm:text-xl font-semibold py-2">
                   Select a mode of payment:
                 </h1>
-                <div className="w-1/2">
+                <div className="w-full sm:w-1/2">
                   <div className="flex justify-between">
                     <label htmlFor="cash">Cash</label>
                     <input
@@ -444,7 +444,7 @@ const RestaurantCard = ({ item, dish }) => {
                   </div>
                 </div>
               </form>
-              <div className="grid grid-cols-2 gap-4 pt-8 px-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-8 px-8">
                 <button onClick={addToCart}
                   className="py-2 px-4 font-semibold text-white bg-yellow-500 rounded-lg"
                 >
@@ -502,10 +502,10 @@ const OrderFromRestaurant = ({ dish }) => {
 
   return (
     <div className="p-8">
-      <h1 className="text-4xl font-bold px-4 pb-10">
+      <h1 className="text-lg sm:text-4xl font-bold px-4 pb-10">
         Available in these Restaurants
       </h1>
-      <div className="grid grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
         {restaurants.map((item) => (
           <RestaurantCard key={item._id} item={item} dish={dish} />
         ))}
