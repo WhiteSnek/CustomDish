@@ -10,6 +10,10 @@ export default function Header() {
   const { user,restaurant } = useContext(UserContext);
   const [query,setQuery] = useState('');
   const {setSearch} = useContext(UserContext)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearch(query)
+  }
   return (
     <header className="shadow w-full">
       <div className="flex justify-between items-center sm:gap-10 px-2 sm:px-10 py-2">
@@ -23,7 +27,7 @@ export default function Header() {
         </div>
         <div className="w-1/3 shadow sm:block hidden">
           {/* TODO: Add functionality to search bar */}
-          <form className="relative">
+          <form className="relative" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Search"
@@ -31,9 +35,9 @@ export default function Header() {
               onChange={(e)=>setQuery(e.target.value)}
             />
             <button
-              type="button"
+              type="submit"
               className="absolute top-0 right-0 py-2 px-4 bg-red-700 text-white text-xl rounded-r-lg"
-              onClick={()=>setSearch(query)}
+              
             >
               Search
             </button>
