@@ -8,6 +8,8 @@ import axios from "axios";
 
 export default function Header() {
   const { user,restaurant } = useContext(UserContext);
+  const [query,setQuery] = useState('');
+  const {setSearch} = useContext(UserContext)
   return (
     <header className="shadow w-full">
       <div className="flex justify-between items-center sm:gap-10 px-2 sm:px-10 py-2">
@@ -26,10 +28,12 @@ export default function Header() {
               type="text"
               placeholder="Search"
               className="w-11/12 outline-none border-2 rounded-l-lg  border-gray-200 py-2 px-4"
+              onChange={(e)=>setQuery(e.target.value)}
             />
             <button
-              type="submit"
+              type="button"
               className="absolute top-0 right-0 py-2 px-4 bg-red-700 text-white text-xl rounded-r-lg"
+              onClick={()=>setSearch(query)}
             >
               Search
             </button>

@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-
+import { GrPrevious, GrNext } from "react-icons/gr";
+import ReactPaginate from 'react-paginate';
+import UserContext from '../context/UserContext';
 
 
 
@@ -29,21 +31,52 @@ const RestaurantCard = ({item}) => {
 
 const Restaurant = () => {
     const [restaurants, setRestaurants] = useState([])
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 6;
+    const {search} = useContext(UserContext)
     useEffect(()=>{
         getRestaurants()
-    },[])
+    },[search])
     const getRestaurants = async () => {
-        const response = await axios.get('/restaurant/restaurants',{withCredentials: true})
+        const response = await axios.get('/restaurant/restaurants',{
+            params: {
+                query: search
+            }
+        },{withCredentials: true})
         setRestaurants(response.data.data)
     }
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = restaurants.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(restaurants.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = event.selected * itemsPerPage;
+        setItemOffset(newOffset);
+    };
   return (
     <div className='p-8'>
       <h1 className='text-4xl font-bold px-4 pb-10'>Best Restaurants in Delhi</h1>
     <div className='grid grid-cols-1 sm:grid-cols-3 gap-12'>
-        {restaurants.map((item,idx)=>(
+        {currentItems.map((item,idx)=>(
             <RestaurantCard key={idx} item={item} />
         ))}
     </div>
+    <div className="flex justify-center mt-6">
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel={<GrNext />}
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel={<GrPrevious />}
+                    renderOnZeroPageCount={null}
+                    pageLinkClassName="bg-gray-100 py-2 px-4 rounded-md"
+                    previousClassName="bg-gray-100 py-2 px-2 rounded-md"
+                    nextClassName="bg-gray-100 py-2 px-2 rounded-md"
+                    activeLinkClassName="border-2 border-gray-500 bg-gray-300"
+                    className="flex gap-4 justify-center items-center"
+                />
+            </div>
     </div>
   )
 }
