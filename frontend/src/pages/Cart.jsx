@@ -31,10 +31,8 @@ const CartItem = ({item, getCart}) => {
   const removeItFromCart = async () => {
     try{
       const cartId = item._id;
-        const removeFromUserCart = await axios.delete(`/users/remove-cart/${cartId}`,{withCredentials: true})
-
-        const removeFromCart = await axios.delete(`/cart/remove/${item._id}`,{},{withCredentials: true});
-
+        await axios.delete(`/users/remove-cart/${cartId}`,{withCredentials: true})
+        await axios.delete(`/cart/remove/${item._id}`,{withCredentials: true});
         getCart()
     } catch(error){
       console.log(error)
@@ -78,11 +76,7 @@ const CartItem = ({item, getCart}) => {
             setPaymentType("");
           }
         });
-        const cartId = item._id;
-        const removeFromUserCart = await axios.delete('/users/cart',{cartId},{withCredentials: true})
-
-        const removeFromCart = await axios.delete(`/cart/remove/${item._id}`,{withCredentials: true});
-
+        removeItFromCart()
     } catch (error) {
       console.log(error)
     }

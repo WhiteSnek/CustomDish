@@ -14,7 +14,8 @@ import {
     addAddress,
     addToUserCart,
     getCart,
-    removeFromCart
+    removeFromCart,
+    getCartLength
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -38,5 +39,6 @@ router.route("/orders/:orderId").post(verifyJWT, addOrder);
 router.route("/address").post(verifyJWT, addAddress);
 router.route("/cart").post(verifyJWT, addToUserCart).get(verifyJWT, getCart)
 router.route("/remove-cart/:itemId").delete(verifyJWT,removeFromCart)
+router.route("/cart-length").get(verifyJWT,getCartLength)
 
 export default router;

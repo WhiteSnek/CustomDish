@@ -11,10 +11,22 @@ export default function Header() {
   const { user,restaurant } = useContext(UserContext);
   const [query,setQuery] = useState('');
   const {setSearch} = useContext(UserContext)
+  const [cart,setCart] = useState(0)
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearch(query)
   }
+  useEffect(()=>{
+    const getCartLength = async () => {
+      try {
+        const response = await axios.get('/users/cart-length',{withCredentials:true});
+        setCart(response.data.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getCartLength()
+  },[cart])
   return (
     <header className="shadow w-full">
       <div className="flex justify-between items-center gap-2 sm:gap-10 px-2 sm:px-10 py-2">
@@ -54,7 +66,7 @@ export default function Header() {
               <CiShoppingCart />
             </IconContext.Provider>
             {user && <div className="absolute top-0 left-0 m-3 flex justify-center bg-red-800 text-white rounded-full w-4 text-xs h-4">
-              {user?.cart.length}
+              {cart}
             </div>}
           </Link>}
             <Link to={user ? "/profile": `restaurantProfile/${restaurant._id}`}>

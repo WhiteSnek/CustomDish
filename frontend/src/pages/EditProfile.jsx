@@ -65,6 +65,7 @@ const EditProfile = () => {
         const response = await axios.post('/users/address',{address},{withCredentials: true});
 
         setUser(response.data.data)
+        localStorage.setItem("user", JSON.stringify(response.data.data));
 
     } catch (error) {
         const errorMessage = error.response.data.match(

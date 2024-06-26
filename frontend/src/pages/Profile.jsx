@@ -1,12 +1,25 @@
 import React, {useContext, useEffect, useState} from 'react'
 import UserContext from '../context/UserContext'
 import axios from 'axios'
+import { RxCross1 } from "react-icons/rx";
 import { Link } from 'react-router-dom'
 
-const OrderCard = ({item}) => {
+const OrderCard = ({item, getOrders}) => {
+  const cancelOrder = async () => {
+    const response = await axios.patch(`/order/status/${item._id}`,{},{withCredentials: true});
+    getOrders()
+    console.log(response)
+  }
+  const deleteOrder = async () => {
+    const response = await axios.delete(`/order/${item._id}`,{withCredentials: true});
+    console.log(response)
+    getOrders()
+  }
     return (
         <div className='bg-gray-100 p-4 rounded-lg'>
-          <div className='p-4 flex flex-col border border-gray-600 rounded-lg items-center'>
+          
+          <div className='p-4 flex flex-col border border-gray-600 rounded-lg items-center relative'>
+          <button onClick={deleteOrder} title='Delete' className='transition-all absolute top-0 right-0 p-2 hover:bg-gray-50 hover:shadow rounded-full m-2'><RxCross1/></button>
             <img src={item.dish[0].image} alt={item.dish[0].name} className='h-40 aspect-square object-cover rounded-lg' />
             <h3 className='text-lg font-semibold'>{item.dish[0].name}</h3>
             <h2 className='font-thin text-md text-gray-600'>Ordered from: <Link to={`/restaurantProfile/${item.restaurant[0]._id}`} className='underline font-medium'>{item.restaurant[0].fullname}</Link></h2>
@@ -23,7 +36,8 @@ const OrderCard = ({item}) => {
             <p className='w-3/4'>Deliver to: {item.address}</p>
             <button className='text-blue-600 underline w-1/4'>Change</button>
           </div>
-          <button className='text-center w-full bg-red-600 text-white px-4 py-2 rounded-lg my-4'>Cancel Order</button>
+          {item.status === 'cancelled' ?<button className='text-center w-full bg-gray-400 text-white px-4 py-2 rounded-lg my-4' disabled>Cancelled</button> :<button onClick={cancelOrder} className='text-center w-full bg-red-600 text-white px-4 py-2 rounded-lg my-4'>Cancel Order</button>}
+          <button className='text-center w-full bg-green-600 text-white px-4 py-2 rounded-lg '>View Order</button>
         </div>
     )
 }
@@ -79,7 +93,7 @@ const Profile = () => {
         <h1 className='text-3xl font-semibold pb-8'>Your orders</h1>
         <div className='grid sm:grid-cols-4 gap-4'>
             {orders.length === 0 ? <div className='flex flex-col justify-start items-center gap-4'><p className='text-xl font-thin'>No orders found</p><button className='text-white bg-red-500 px-4 py-2 rounded-md text-lg'>Order something</button></div> : orders.map((item,idx)=>(
-                <OrderCard key={idx} item={item} />
+                <OrderCard key={idx} item={item} getOrders={getOrders}/>
             )) }
         </div>
       </div>

@@ -288,21 +288,31 @@ const getCart = asyncHandler(async (req, res) => {
 });
 
 const removeFromCart = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const itemId = req.params.itemId;
+  
+  if (!userId || !itemId) {
+    throw new ApiError(400, "User ID or Item ID not provided");
+  }
+
   const user = await User.findByIdAndUpdate(
-    req.user._id,
+    userId,
     {
       $pull: {
-        cart: req.params.id,
+        cart: itemId,
       },
     },
     { new: true }
   );
-  if(!user) throw new ApiError(400,"Error removing from cart")
+
+  if (!user) {
+    throw new ApiError(400, "Error removing item from cart");
+  }
+
   return res
     .status(200)
     .json(new ApiResponse(200, user, "Item removed from cart successfully"));
 });
-
 const changeCurrentPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
 
@@ -475,6 +485,15 @@ const getOrders = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, user[0].order, "Orders fetched successfully"));
 });
+
+const getCartLength = asyncHandler(async(req,res)=>{
+  const user = await User.findById(req.user._id);
+  const cartLength = user.cart.length;
+  return res
+  .status(200)
+  .json(new ApiResponse(200, cartLength, "Cart length fetched successfully"));
+})
+
 export {
   registerUser,
   loginUser,
@@ -491,4 +510,5 @@ export {
   addToUserCart,
   getCart,
   removeFromCart,
+  getCartLength
 };
