@@ -4,6 +4,7 @@ import { IconContext } from "react-icons/lib";
 import { CiShoppingCart } from "react-icons/ci";
 import Logo from "../assets/logo.png";
 import UserContext from "../context/UserContext";
+import { CiSearch } from "react-icons/ci";
 import axios from "axios";
 
 export default function Header() {
@@ -16,17 +17,16 @@ export default function Header() {
   }
   return (
     <header className="shadow w-full">
-      <div className="flex justify-between items-center sm:gap-10 px-2 sm:px-10 py-2">
+      <div className="flex justify-between items-center gap-2 sm:gap-10 px-2 sm:px-10 py-2">
         <Link to="/" className="flex gap-4 justify-center items-center">
-          <img src={Logo} alt="logo" className="h-10 sm:h-14 aspect-square" />
+          <img src={Logo} alt="logo" className="w-10 sm:w-14 aspect-square" />
           {window.innerWidth > 768 && <p className="text-lg text-red-900 font-bold">CustomDish.com</p>}
         </Link>
-        <div className="px-4 w-18 sm:w-30">
+        <div className="px-4 w-18 sm:w-30 sm:block hidden">
           {/* Address of user */}
           <p className="text-xs sm:text-md">Deliver to {user?.address ? user.address : "address" }</p>
         </div>
-        <div className="w-1/3 shadow sm:block hidden">
-          {/* TODO: Add functionality to search bar */}
+        <div className="w-2/3 sm:w-1/3 shadow rounded-lg ">
           <form className="relative" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -39,7 +39,7 @@ export default function Header() {
               className="absolute top-0 right-0 py-2 px-4 bg-red-700 text-white text-xl rounded-r-lg"
               
             >
-              Search
+              {window.width > 768 ? 'Search' : <CiSearch size='27px' />}
             </button>
           </form>
         </div>
@@ -61,7 +61,7 @@ export default function Header() {
               <img
                 src={user?.avatar || restaurant?.avatar}
                 alt="avatar"
-                className="h-10 w-10 rounded-full object-cover"
+                className="w-10 aspect-square rounded-full object-cover"
               />
             </Link>
             

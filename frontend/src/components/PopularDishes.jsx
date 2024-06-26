@@ -23,7 +23,7 @@ const PopularDishes = () => {
     const [recipes, setRecipes] = useState([]);
     const { category, search } = useContext(UserContext);
     const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 12;
+    const itemsPerPage = window.width > 768 ? 12 : 6;
 
     useEffect(() => {
         getAllDishes();

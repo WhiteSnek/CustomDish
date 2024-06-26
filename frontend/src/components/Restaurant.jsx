@@ -32,7 +32,7 @@ const RestaurantCard = ({item}) => {
 const Restaurant = () => {
     const [restaurants, setRestaurants] = useState([])
     const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 6;
+    const itemsPerPage = window.width > 768 ? 6 : 3;
     const {search} = useContext(UserContext)
     useEffect(()=>{
         getRestaurants()

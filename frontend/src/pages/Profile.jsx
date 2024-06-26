@@ -43,7 +43,7 @@ const Profile = () => {
         const errorMessage = error.response.data.match(
           /<pre>Error: (.*?)<br>/
         )[1];
-        setError(errorMessage)
+        console.log(errorMessage)
       }
     }
     const logoutUser = async() => {
@@ -53,7 +53,10 @@ const Profile = () => {
         localStorage.removeItem('user');
         setUser(null)
       } catch(error){
-        console.log(error);
+        const errorMessage = error.response.data.match(
+          /<pre>Error: (.*?)<br>/
+        )[1];
+        console.log(errorMessage)
       }
     }
   return (
