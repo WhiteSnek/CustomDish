@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: custom-dish
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      name: frontend-pod
+      namespace: custom-dish
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: custom-dish-frontend
+        image: whitesnek/custom-dish-frontend:latest 
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        env:
+        - name: NODE_ENV
+          value: production

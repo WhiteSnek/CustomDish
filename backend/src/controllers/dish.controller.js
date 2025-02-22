@@ -54,28 +54,28 @@ const updateDish = asyncHandler(async (req, res) => {
 });
 
 const getAllDishes = asyncHandler( async(req,res)=>{
-  const {query, sortBy, sortType } = req.query;
-const filter = {};
-if (query) {
-  filter.$or = [
-    { name: { $regex: query, $options: "i" } }, // Case-insensitive title search
-    { category: { $regex: query, $options: "i" } }, // Case-insensitive description search
-  ];
-}
+    const {query, sortBy, sortType } = req.query;
+  const filter = {};
+  if (query) {
+    filter.$or = [
+      { name: { $regex: query, $options: "i" } }, // Case-insensitive title search
+      { category: { $regex: query, $options: "i" } }, // Case-insensitive description search
+    ];
+  }
 
-const sort = {};
-if (sortBy) {
-  sort[sortBy] = sortType === "desc" ? -1 : 1;
-}
+  const sort = {};
+  if (sortBy) {
+    sort[sortBy] = sortType === "desc" ? -1 : 1;
+  }
 
-const dishes = await Dish.find(filter)
-  .sort(sort)
+  const dishes = await Dish.find(filter)
+    .sort(sort)
 
 
-// Send back the response
-return res
-  .status(200)
-  .json(new ApiResponse(200, dishes, "Dishes fetched successfully"));
+  // Send back the response
+  return res
+    .status(200)
+    .json(new ApiResponse(200, dishes, "Dishes fetched successfully"));
 })
 
 

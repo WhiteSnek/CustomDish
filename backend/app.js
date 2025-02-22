@@ -1,10 +1,13 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from 'cors'
+import createRateLimiter from 'api-rate-limiter-middleware'
 
 const app = express();
 
 const allowedOrigins = [process.env.CORS_ORIGIN];
+const limiter = createRateLimiter({ minutes: 5, maxRequests: 10 });
+app.use(limiter);
 
 app.use(cors({
     origin: function (origin, callback) {

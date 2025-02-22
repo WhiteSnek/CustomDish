@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5174:5173"
+    container_name: 'custom-dish-frontend'
+    networks:
+      - custom-dish-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3000"
+    container_name: 'custom-dish-backend'
+    networks:
+      - custom-dish-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  mongodb:
+    image: mongo:latest
+    container_name: 'custom-dish-mongodb'
+    ports:
+      - 2717:27017
+    networks:
+      - custom-dish-network
+    volumes:
+      - mongodb-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand({ping: 1})"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+networks:
+  custom-dish-network:
+    driver: bridge
+
+volumes:
+  mongodb-data:

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: custom-dish
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      name: backend-pod
+      namespace: custom-dish
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: custom-dish-backend
+        image: whitesnek/custom-dish-backend:latest 
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: MONGODB_URI
+          value: "mongodb://mongoadmin:secret@mongodb:27017/dbName?authSource=admin"
+        - name: ACCESS_TOKEN_SECRET
+          valueFrom:
+            secretKeyRef:
+              name:  custom-dish-secret
+              key: access_token
+        - name: PORT
+          value: "3000"

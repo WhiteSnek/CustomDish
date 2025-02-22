@@ -40,5 +40,4 @@ router.route("/address").post(verifyJWT, addAddress);
 router.route("/cart").post(verifyJWT, addToUserCart).get(verifyJWT, getCart)
 router.route("/remove-cart/:itemId").delete(verifyJWT,removeFromCart)
 router.route("/cart-length").get(verifyJWT,getCartLength)
-
 export default router;

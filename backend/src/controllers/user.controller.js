@@ -5,6 +5,9 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import nodemailer from 'nodemailer'
+import { google } from 'googleapis';
+
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -144,7 +147,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   };
   return res
     .status(200)
-    .clearCookie("accessToken", options)
+    .clearCookie("accessToken", options) 
     .clearCookie("refreshToken", options)
     .json(new ApiResponse(200, {}, "User logged out"));
 });
@@ -494,6 +497,10 @@ const getCartLength = asyncHandler(async(req,res)=>{
   .json(new ApiResponse(200, cartLength, "Cart length fetched successfully"));
 })
 
+
+
+
+
 export {
   registerUser,
   loginUser,
@@ -510,5 +517,5 @@ export {
   addToUserCart,
   getCart,
   removeFromCart,
-  getCartLength
+  getCartLength,
 };

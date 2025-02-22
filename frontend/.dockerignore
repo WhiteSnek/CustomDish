@@ -1,0 +1,25 @@
+# Ignore node_modules directory
+node_modules
+
+# Ignore the Dockerfile itself
+Dockerfile
+
+# Ignore git configuration and data
+.git
+.gitignore
+
+# Ignore logs and temp files
+npm-debug.log
+yarn-error.log
+*.log
+*.tmp
+
+# Ignore environment variables files
+.env
+
+# Ignore coverage directory created by testing tools
+coverage
+
+# Ignore build directory
+build
+dist
